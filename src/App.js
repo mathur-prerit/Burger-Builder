@@ -2,12 +2,15 @@ import React from "react";
 import "./App.css";
 // import styles from './Button.module.css';
 
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import BurgerHome from "./components/BurgerHome.js";
 
 function App() {
   return (
     <BrowserRouter>
-    <Route path="/" exact/>
+      <Switch>
+        <Route path="/" exact component={BurgerHome} />
+      </Switch>
     </BrowserRouter>
   );
 }

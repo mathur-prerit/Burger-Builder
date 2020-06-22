@@ -1,0 +1,45 @@
+.Breadbottom {
+  background: linear-gradient(#f08e4a, #e27b36);
+  border-radius: 0 0 50% 50%;
+  box-shadow: inset -15px 0 #c15711;
+  margin: 2% auto;
+  height: 13%;
+  width: 80%;
+}
+
+.Breadtop {
+  background: linear-gradient(#f08e4a, #e27b36);
+  border-radius: 50% 50% 0 0;
+  box-shadow: inset -15px 0 #c15711;
+  margin: 2% auto;
+  height: 13%;
+  width: 80%;
+}
+
+.Salad {
+  background-color:#9ed870;
+  margin: 1% auto;
+  width: 80%;
+  border-radius:5%;
+}
+
+.Cheese {
+    background-color:#ffa600;
+    margin: 1% auto;
+    width: 80%;
+    border-radius:5%;
+}
+
+.Bacon {
+    background-color:#EEBF77;
+    margin: 1% auto;
+    width: 80%;
+    border-radius:5%;
+}
+
+.Meat {
+    background-color:#a16868;
+    margin: 1% auto;
+    width: 80%;
+    border-radius:5%;
+}

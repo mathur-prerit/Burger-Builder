@@ -1,12 +1,28 @@
+import * as actionTypes from '../actions/actions.js'
+
 const initalState = {
-    item:[]
+    ingredients:{
+      bacon:1,
+      salad:2,
+      cheese:1,
+      meat:2,
+      
+    }
 };
 
-export const reducer = (state = initalState, action) => {
+const reducer = (state = initalState, action) => {
+  console.log(action)
   switch (action.type) {
-    case "1":
+    case actionTypes.INCREASEQUANTITY:
+      console.log(12345)
       return state;
-    default:
+
+    case actionTypes.DECREASEQUANTITY:
+      return state;
+    
+      default:
       return state;
   }
 };
+
+export default reducer;
