@@ -3,7 +3,6 @@ import BurgerIngredients from "./BurgerIngredients";
 
 class BurgerSection extends Component {
   render() {
-    // console.log(this.props.items)
     let ingredientsList = Object.keys(this.props.items).map((item) => {
       return [...Array(this.props.items[item])].map((list, i) => {
         return(

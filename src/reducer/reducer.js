@@ -1,4 +1,5 @@
 import * as actionTypes from "../actions/actionTypes.js";
+import {priceData} from "../actions/prices.js"
 
 const initalState = {
   ingredients: {
@@ -15,6 +16,7 @@ const reducer = (state = initalState, action) => {
     case actionTypes.INCREASEQUANTITY:
       return {
         ...state,
+        price:state.price+priceData[action.payload.item],
         ingredients: {
           ...state.ingredients,
           [action.payload.item]:
@@ -28,6 +30,7 @@ const reducer = (state = initalState, action) => {
       } else {
         return {
           ...state,
+          price:state.price-priceData[action.payload.item],
           ingredients: {
             ...state.ingredients,
             [action.payload.item]:
