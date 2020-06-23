@@ -4,16 +4,23 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
-import { createStore,combineReducers } from 'redux';
+import { createStore,combineReducers,applyMiddleware } from 'redux';
+import createSagaMiddleware from "redux-saga"
+
 import reducer from "./reducer/reducer.js"
 import orderReducer from "./reducer/orderReducer.js"
+import rootSaga from "./sagas/rootSagas.js"
 
 const rootReducer=combineReducers({
   reducer,
   orderReducer
 })
 
-const store=createStore(rootReducer);
+const sagaMiddleware = createSagaMiddleware();
+
+const store=createStore(rootReducer,applyMiddleware(sagaMiddleware));
+
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <React.StrictMode>

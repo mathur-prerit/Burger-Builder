@@ -1,5 +1,4 @@
 import * as actionTypes from "../actions/actionTypes.js";
-import {fetchOrders} from "../actions/orders"
 
 const initialState = {
   purchased: false,
@@ -14,11 +13,9 @@ const orderReducer = (state = initialState, action) => {
         purchased: action.payload.ordered,
     };
 
-    case actionTypes.FETCHORDERS:
-    let orderlist=fetchOrders()
-    console.log(orderlist)
+    case actionTypes.FETCHEDORDERS:
     return {
-      orders:orderlist
+      orders:Object.entries(action.orderList)
     }
 
 

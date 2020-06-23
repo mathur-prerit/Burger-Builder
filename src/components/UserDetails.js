@@ -47,7 +47,7 @@ class UserDetails extends Component {
             { value: "office", displayValue: "Commerical" },
           ],
         },
-        value: "",
+        value: "home",
       },
     },
   };
