@@ -1,5 +1,7 @@
 .InputField{
-    padding:1%
+    padding:1%;
+    width: 80%;
+    margin: 1% auto;
 }
 
 .Invalid{

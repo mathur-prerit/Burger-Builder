@@ -125,7 +125,7 @@ class UserDetails extends Component {
           //     // this.props.history.push("/orders")
           //   }
           // );
-          this.props.history.push("/orders")
+          this.props.history.push("/orders");
         }
       })
       .catch((err) => {
@@ -169,32 +169,41 @@ class UserDetails extends Component {
       return (
         <div className="modal">
           <div className="modal-content">
-            <button
-              className="close-btn"
-              onClick={() => this.props.modalToggle(false)}
-            >
-              X
-            </button>
-            <form style={{ margin: "auto" }} onSubmit={this.placeOrder}>
-              {elementsArray.map((formElement) => {
-                return (
-                  <InputItems
-                    key={formElement.id}
-                    elementType={formElement.config.elementType}
-                    elementConfig={formElement.config.elementConfig}
-                    value={formElement.config.value}
-                    invalid={!formElement.config.valid}
-                    shouldBeChecked={formElement.config.validation}
-                    touched={formElement.config.touched}
-                    valueChange={(e) =>
-                      this.inputChangedHandler(e, formElement.id)
-                    }
-                  />
-                );
-              })}
-              {/* <OrderButton/> */}
-              <button disabled={!this.state.formIsValid}>Order Now!</button>
-            </form>
+              <button
+                className="close-btn btn-border"
+                onClick={() => this.props.modalToggle(false)}
+              >
+                X
+              </button>
+              {/* <div style={{}}> */}
+              <form style={{ margin: "auto" }} onSubmit={this.placeOrder}>
+                {elementsArray.map((formElement) => {
+                  return (
+                    <InputItems
+                      key={formElement.id}
+                      elementType={formElement.config.elementType}
+                      elementConfig={formElement.config.elementConfig}
+                      value={formElement.config.value}
+                      invalid={!formElement.config.valid}
+                      shouldBeChecked={formElement.config.validation}
+                      touched={formElement.config.touched}
+                      valueChange={(e) =>
+                        this.inputChangedHandler(e, formElement.id)
+                      }
+                    />
+                  );
+                })}
+                {/* <OrderButton/> */}
+                <div>
+                <button
+                  className="btn-border" style={{padding:"1%",margin:'2% auto'}}
+                  disabled={!this.state.formIsValid}
+                >
+                  Order Now!
+                </button>
+                </div>
+              </form>
+              {/* </div> */}
           </div>
         </div>
       );

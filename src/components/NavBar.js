@@ -7,9 +7,9 @@ const redirectOrders=(props)=>{
 
 const NavBar = (props) => {
   return (
-    <nav className="flex-class" style={{padding:"2%"}}>
-      <Link to={"/"}>Home</Link>
-        <div onClick={()=>redirectOrders(props)}>Orders</div>
+    <nav className="flex-class" style={{padding:"2% 5%",backgroundColor:"#ffa64d",margin:"0"}}>
+      <Link to={"/"} className="nav-btn" style={{textDecoration:"none",color:"black"}}>Home</Link>
+        <div className="nav-btn" style={{cursor:"pointer"}} onClick={()=>redirectOrders(props)}>Orders</div>
     </nav>
   );
 };

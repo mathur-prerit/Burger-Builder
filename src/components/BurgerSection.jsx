@@ -11,7 +11,7 @@ class BurgerSection extends Component {
       });
     });
     return (
-    <div>
+    <div className="burger-container">
         <BurgerIngredients type="breadTop"/>
         {ingredientsList}
         <BurgerIngredients type="breadBottom"/>

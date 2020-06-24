@@ -25,7 +25,7 @@ const InputItems = (props) => {
       break;
     case "select":
       InputField = (
-        <select value={props.value} onChange={props.valueChange}>
+        <select className={inputClasses.join(" ")} value={props.value} onChange={props.valueChange}>
           {props.elementConfig.options.map((option) => (
             <option key={option.value} value={option.value}>
               {option.displayValue}
