@@ -14,14 +14,14 @@ class BurgerHome extends Component {
   modalToggle=(value)=>{
     if(this.state.modal!==value){
       this.setState({modal:value},() => {
-        console.log('modal toggled')
+        console.log('callback function can be called like this')
        })
     }
   }
   render() {
     return (
       <div>
-        {/* <NavBar /> */}
+        <NavBar />
         <BurgerSection items={this.props.items}/>
         <BurgerOrder items={this.props.items} price={this.props.price} modal={this.state.modal} modalToggle={this.modalToggle}/>
         <UserDetails modal={this.state.modal} modalToggle={this.modalToggle}/>

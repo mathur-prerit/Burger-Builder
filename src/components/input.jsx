@@ -1,13 +1,22 @@
 import React from "react";
+import styles from "./Input.module.css"
 
 const InputItems = (props) => {
-  let inputField = null;
+  let InputField = null;
+  let inputClasses=[styles.InputField]
+  let validationError = null;
 
-  // console.log(props)
+  if(props.invalid && props.shouldBeChecked && props.touched){
+    inputClasses.push(styles.Invalid)
+    validationError = <p>Please enter {props.elementConfig.placeholder} valid</p>;
+  }
+
+
   switch (props.elementType) {
     case "input":
-      inputField = (
+      InputField = (
         <input
+        className={inputClasses.join(" ")}
           {...props.elementConfig}
           value={props.value}
           onChange={props.valueChange}
@@ -15,7 +24,7 @@ const InputItems = (props) => {
       );
       break;
     case "select":
-      inputField = (
+      InputField = (
         <select value={props.value} onChange={props.valueChange}>
           {props.elementConfig.options.map((option) => (
             <option key={option.value} value={option.value}>
@@ -26,8 +35,9 @@ const InputItems = (props) => {
       );
       break;
     default:
-      inputField = (
+      InputField = (
         <input
+        className={inputClasses.join(" ")}
           {...props.elementConfig}
           value={props.value}
           onChange={props.valueChange}
@@ -37,7 +47,8 @@ const InputItems = (props) => {
   return (
     <div>
       <label>{props.label}</label>
-      {inputField}
+      {InputField}
+      {validationError}
     </div>
   );
 };

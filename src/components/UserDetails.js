@@ -3,6 +3,7 @@ import InputItems from "./input";
 // import OrderButton from "./OrderButton.jsx";
 import { connect } from "react-redux";
 import axios from "../axios/axios-config.js";
+import { withRouter } from "react-router";
 
 class UserDetails extends Component {
   state = {
@@ -14,6 +15,10 @@ class UserDetails extends Component {
           placeholder: "Your Name",
         },
         value: "",
+        validation: {
+          required: true,
+        },
+        valid: false,
       },
       address: {
         elementType: "input",
@@ -22,6 +27,11 @@ class UserDetails extends Component {
           placeholder: "Your Address",
         },
         value: "",
+        validation: {
+          required: true,
+        },
+        valid: false,
+        touched: false,
       },
       email: {
         elementType: "input",
@@ -30,6 +40,11 @@ class UserDetails extends Component {
           placeholder: "Your Email",
         },
         value: "",
+        validation: {
+          required: true,
+        },
+        valid: false,
+        touched: false,
       },
       mobile: {
         elementType: "input",
@@ -38,6 +53,12 @@ class UserDetails extends Component {
           placeholder: "Your Phone",
         },
         value: "",
+        validation: {
+          required: true,
+          length: true,
+        },
+        valid: false,
+        touched: false,
       },
       addressType: {
         elementType: "select",
@@ -48,8 +69,27 @@ class UserDetails extends Component {
           ],
         },
         value: "home",
+        validation: {
+          required: false,
+        },
+        valid: true,
       },
     },
+    formIsValid: false,
+  };
+
+  checkValidation = (value, rules) => {
+    let checkValid = true;
+
+    if (rules.required === true) {
+      checkValid = value.trim() !== "" && checkValid;
+    }
+
+    if (rules.length === true) {
+      checkValid = value.trim().length === 10 && checkValid;
+    }
+
+    return checkValid;
   };
 
   placeOrder = (e) => {
@@ -64,13 +104,33 @@ class UserDetails extends Component {
       details: formData,
       purchased: true,
     };
-    axios.post('/orders.json',{
-        data:finalData
-    }).then(res=>{
-        console.log(res)
-    }).catch(err=>{
-        console.log(err)
-    })
+    axios
+      .post("/orders.json", {
+        data: finalData,
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          // this.setState(
+          //   (prevState) => {
+          //     return {...prevState,
+          //     orderFrom:{
+          //       ...orderForm,
+          //       name:{
+          //         ...name,
+          //       }
+          //     }}
+          //   },
+          //   () => {
+          //     console.log(this.state)
+          //     // this.props.history.push("/orders")
+          //   }
+          // );
+          this.props.history.push("/orders")
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   inputChangedHandler = (e, id) => {
@@ -83,8 +143,19 @@ class UserDetails extends Component {
     };
 
     updatedFormElement.value = e.target.value;
+    updatedFormElement.valid = this.checkValidation(
+      updatedFormElement.value,
+      updatedFormElement.validation
+    );
+    updatedFormElement.touched = true;
     updatedOrderForm[id] = updatedFormElement;
-    this.setState({ orderForm: updatedOrderForm });
+
+    let formValid = true;
+    for (let elements in updatedOrderForm) {
+      formValid = updatedOrderForm[elements].valid && formValid;
+    }
+
+    this.setState({ orderForm: updatedOrderForm, formIsValid: formValid });
   };
   render() {
     const elementsArray = [];
@@ -112,6 +183,9 @@ class UserDetails extends Component {
                     elementType={formElement.config.elementType}
                     elementConfig={formElement.config.elementConfig}
                     value={formElement.config.value}
+                    invalid={!formElement.config.valid}
+                    shouldBeChecked={formElement.config.validation}
+                    touched={formElement.config.touched}
                     valueChange={(e) =>
                       this.inputChangedHandler(e, formElement.id)
                     }
@@ -119,7 +193,7 @@ class UserDetails extends Component {
                 );
               })}
               {/* <OrderButton/> */}
-              <button>Order Now!</button>
+              <button disabled={!this.state.formIsValid}>Order Now!</button>
             </form>
           </div>
         </div>
@@ -131,7 +205,6 @@ class UserDetails extends Component {
 }
 
 const mapStateToProps = (state) => {
-  // console.log(state)
   return {
     price: state.reducer.price,
     purchased: state.orderReducer.purchased,
@@ -139,4 +212,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(UserDetails);
+export default connect(mapStateToProps)(withRouter(UserDetails));
